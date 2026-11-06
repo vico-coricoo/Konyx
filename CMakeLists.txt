@@ -44,9 +44,20 @@ set(KONYX_SOURCES
     src/KonyxApp.cpp
     src/core/CommandRegistry.cpp
     src/commands/KonCalculs/KonCalculsCommands.cpp
+    src/commands/KonCalculs/GeoBase/GeoRecord.cpp
+    src/commands/KonCalculs/GeoBase/GeoBaseParser.cpp
+    src/commands/KonCalculs/GeoBase/GeoBaseDialog.cpp
     src/commands/Konyx2D/Konyx2DCommands.cpp
     src/commands/Konyx3D/Konyx3DCommands.cpp
     src/commands/KonEdition/KonEditionCommands.cpp
+    src/core/UI/KonyxUI.cpp
+    src/commands/KonCalculs/GeoBase/GeoEditDialog.cpp
+    src/commands/KonCalculs/GeoBase/GeoStationVisees.cpp
+    src/commands/KonCalculs/GeoBase/GeoCalculV0.cpp
+    src/commands/KonCalculs/GeoBase/GeoCalculV0Dialog.cpp
+    src/commands/KonCalculs/GeoBase/GeoCalculV0Graphique.cpp
+    src/commands/KonCalculs/GeoBase/GeoBaseRuban.cpp
+    src/commands/KonCalculs/GeoBase/GeoAjouterTypeDialog.cpp
 )
 
 # Le module ObjectARX est une DLL Windows, simplement renommee en .arx.
@@ -64,14 +75,16 @@ if(WIN32)
         ac1st26     # runtime ARX de base (point d'entree, cycle de vie)
         acdb26      # base de donnees du dessin (AcDb*, entites, blocs...)
         acge26      # geometrie (AcGe*, points, vecteurs, courbes...)
-	accore      # AcEdCommandStack, acedRegCmds et commandes editeur
+	    accore      # AcEdCommandStack, acedRegCmds et commandes editeur
+        gdiplus
+        comctl32
     )
 
     target_compile_definitions(Konyx PRIVATE
-        _AFXDLL
         _USRDLL
         UNICODE
         _UNICODE
+        NOMINMAX
     )
 
     # Renomme la sortie .dll en .arx : c'est l'extension attendue par AutoCAD.
@@ -79,4 +92,6 @@ if(WIN32)
         SUFFIX ".arx"
         OUTPUT_NAME "Konyx"
     )
+
+    target_compile_options(Konyx PRIVATE /utf-8)
 endif()

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Avertissement! Ne modifiez pas le contenu de ce fichier.
+Si vous tentez de modifier ce fichier à l'aide d'un éditeur XML, vous risquez de perdre
+les fonctionnalités de personnalisation et de migration. Si vous devez changer
+les informations du fichier de personnalisation, utilisez la boîte de dialogue
+Personnaliser l'interface utilisateur de ce produit.
+Pour accéder à la boîte de dialogue Personnaliser l'interface utilisateur, cliquez sur
+le menu Outils > Personnaliser > Interface, ou entrez IUP dans la ligne de commande.
+-->
+<RibbonRoot>
+  <RibbonPanelSourceCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <RibbonPanelSource UID="ID_KON_Panel_Carnets" Text="Carnets" HiddenInEditor="false">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <RibbonRow UID="ID_KON_ROW_Carnets1">
+        <RibbonCommandButton UID="ID_KON_BTN_LectureCarnet" Id="AcRibbonCommandButton" Text="Lecture&#xD;carnet" ButtonStyle="LargeWithText" MenuMacroID="ID_KON_LectureCarnet" />
+        <RibbonCommandButton UID="ID_KON_BTN_ExportCarnet" Id="AcRibbonCommandButton" Text="Exportation&#xD;carnet" ButtonStyle="LargeWithText" MenuMacroID="ID_KON_ExportCarnet" />
+      </RibbonRow>
+      <RibbonPanelBreak UID="RBNU_260_F6193" Id="AcRibbonPanelBreak">
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      </RibbonPanelBreak>
+    </RibbonPanelSource>
+    <RibbonPanelSource UID="ID_KON_Panel_GeoBase" Text="GeoBase" HiddenInEditor="false">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <RibbonRow UID="ID_KON_ROW_GeoBase1">
+        <RibbonCommandButton UID="ID_KON_BTN_GeoBase" Id="AcRibbonCommandButton" Text="Edition&#xD;GeoBase" ButtonStyle="LargeWithText" MenuMacroID="ID_KON_GeoBase" />
+      </RibbonRow>
+      <RibbonPanelBreak UID="RBNU_260_93B3C" Id="AcRibbonPanelBreak">
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      </RibbonPanelBreak>
+    </RibbonPanelSource>
+    <RibbonPanelSource UID="ID_KON_Panel_Calculs" Text="Calculs" HiddenInEditor="false">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <RibbonRow UID="ID_KON_ROW_Calculs1">
+        <RibbonCommandButton UID="ID_KON_BTN_Intersections" Id="AcRibbonCommandButton" Text="Intersections" ButtonStyle="SmallWithText" MenuMacroID="ID_KON_Intersections" />
+        <RibbonCommandButton UID="ID_KON_BTN_Relevements" Id="AcRibbonCommandButton" Text="Relevements" ButtonStyle="SmallWithText" MenuMacroID="ID_KON_Relevements" />
+        <RibbonCommandButton UID="ID_KON_BTN_Recoupements" Id="AcRibbonCommandButton" Text="Recoupements" ButtonStyle="SmallWithText" MenuMacroID="ID_KON_Recoupements" />
+      </RibbonRow>
+      <RibbonRow UID="ID_KON_ROW_Calculs2">
+        <RibbonCommandButton UID="ID_KON_BTN_StationsDecalees" Id="AcRibbonCommandButton" Text="Stations decalees" ButtonStyle="SmallWithText" MenuMacroID="ID_KON_StationsDecalees" />
+        <RibbonCommandButton UID="ID_KON_BTN_Triangulation" Id="AcRibbonCommandButton" Text="Triangulation" ButtonStyle="SmallWithText" MenuMacroID="ID_KON_Triangulation" />
+        <RibbonCommandButton UID="ID_KON_BTN_V0" Id="AcRibbonCommandButton" Text="V0" ButtonStyle="SmallWithText" MenuMacroID="ID_KON_V0" />
+      </RibbonRow>
+      <RibbonRow UID="ID_KON_ROW_Calculs3">
+        <RibbonCommandButton UID="ID_KON_BTN_Cheminements" Id="AcRibbonCommandButton" Text="Cheminements" ButtonStyle="SmallWithText" MenuMacroID="ID_KON_Cheminements" />
+        <RibbonCommandButton UID="ID_KON_BTN_EnBloc" Id="AcRibbonCommandButton" Text="En bloc" ButtonStyle="SmallWithText" MenuMacroID="ID_KON_EnBloc" />
+        <RibbonCommandButton UID="ID_KON_BTN_PointsRayonnes" Id="AcRibbonCommandButton" Text="Points rayonnes" ButtonStyle="SmallWithText" MenuMacroID="ID_KON_PointsRayonnes" />
+      </RibbonRow>
+      <RibbonPanelBreak UID="RBNU_260_74369" Id="AcRibbonPanelBreak">
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      </RibbonPanelBreak>
+    </RibbonPanelSource>
+    <RibbonPanelSource UID="ID_KON_Panel_Nivellement" Text="Nivellement" HiddenInEditor="false">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <RibbonRow UID="ID_KON_ROW_Niv1">
+        <RibbonCommandButton UID="ID_KON_BTN_NivDirect" Id="AcRibbonCommandButton" Text="Direct&#xD;simple" ButtonStyle="LargeWithText" MenuMacroID="ID_KON_NivellementDirect" />
+        <RibbonCommandButton UID="ID_KON_BTN_NivDouble" Id="AcRibbonCommandButton" Text="Double&#xD;station" ButtonStyle="LargeWithText" MenuMacroID="ID_KON_NivellementDouble" />
+      </RibbonRow>
+      <RibbonPanelBreak UID="RBNU_260_E4419" Id="AcRibbonPanelBreak">
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      </RibbonPanelBreak>
+    </RibbonPanelSource>
+    <RibbonPanelSource UID="ID_KON_Panel_Codification" Text="Codification" HiddenInEditor="false">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <RibbonRow UID="ID_KON_ROW_Codif1">
+        <RibbonCommandButton UID="ID_KON_BTN_FusionCodif" Id="AcRibbonCommandButton" Text="Fusion" ButtonStyle="SmallWithText" MenuMacroID="ID_KON_FusionCodification" />
+        <RibbonCommandButton UID="ID_KON_BTN_EditionCodes" Id="AcRibbonCommandButton" Text="Table de codes" ButtonStyle="SmallWithText" MenuMacroID="ID_KON_EditionCodes" />
+      </RibbonRow>
+      <RibbonRow UID="ID_KON_ROW_Codif2">
+        <RibbonCommandButton UID="ID_KON_BTN_GenDessin" Id="AcRibbonCommandButton" Text="Generation dessin" ButtonStyle="SmallWithText" MenuMacroID="ID_KON_GenerationDessin" />
+        <RibbonCommandButton UID="ID_KON_BTN_TablePalettes" Id="AcRibbonCommandButton" Text="Palettes" ButtonStyle="SmallWithText" MenuMacroID="ID_KON_TablePalettes" />
+      </RibbonRow>
+      <RibbonPanelBreak UID="RBNU_260_65FBE" Id="AcRibbonPanelBreak">
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      </RibbonPanelBreak>
+    </RibbonPanelSource>
+    <RibbonPanelSource UID="ID_KON_Panel_Options" Text="Options" HiddenInEditor="false">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <RibbonRow UID="ID_KON_ROW_Options1">
+        <RibbonCommandButton UID="ID_KON_BTN_Options" Id="AcRibbonCommandButton" Text="Options" ButtonStyle="LargeWithText" MenuMacroID="ID_KON_Options" />
+      </RibbonRow>
+      <RibbonPanelBreak UID="RBNU_260_D0CA3" Id="AcRibbonPanelBreak">
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      </RibbonPanelBreak>
+    </RibbonPanelSource>
+    <RibbonPanelSource UID="ID_K2D_Panel_Main" Text="Konyx 2D" HiddenInEditor="false">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <RibbonRow UID="ID_K2D_ROW_1">
+        <RibbonCommandButton UID="ID_K2D_BTN_Version" Id="AcRibbonCommandButton" Text="Konyx 2D" ButtonStyle="LargeWithText" MenuMacroID="ID_K2D_Version" />
+      </RibbonRow>
+      <RibbonPanelBreak UID="RBNU_260_5078F" Id="AcRibbonPanelBreak">
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      </RibbonPanelBreak>
+    </RibbonPanelSource>
+    <RibbonPanelSource UID="ID_K3D_Panel_Main" Text="Konyx 3D" HiddenInEditor="false">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <RibbonRow UID="ID_K3D_ROW_1">
+        <RibbonCommandButton UID="ID_K3D_BTN_Version" Id="AcRibbonCommandButton" Text="Konyx 3D" ButtonStyle="LargeWithText" MenuMacroID="ID_K3D_Version" />
+      </RibbonRow>
+      <RibbonPanelBreak UID="RBNU_260_1E490" Id="AcRibbonPanelBreak">
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      </RibbonPanelBreak>
+    </RibbonPanelSource>
+    <RibbonPanelSource UID="ID_KE_Panel_Main" Text="Kon. Edition" HiddenInEditor="false">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <RibbonRow UID="ID_KE_ROW_1">
+        <RibbonCommandButton UID="ID_KE_BTN_Version" Id="AcRibbonCommandButton" Text="Kon. Edition" ButtonStyle="LargeWithText" MenuMacroID="ID_KE_Version" />
+      </RibbonRow>
+      <RibbonPanelBreak UID="RBNU_260_E6C2C" Id="AcRibbonPanelBreak">
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      </RibbonPanelBreak>
+    </RibbonPanelSource>
+  </RibbonPanelSourceCollection>
+  <RibbonTabSelectors />
+</RibbonRoot>

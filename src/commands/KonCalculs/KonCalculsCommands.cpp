@@ -9,6 +9,8 @@
 // d'utiliser KONYX_COMMAND, l'enregistrement est automatique.
 
 #include "../../core/CommandRegistry.h"
+#include "GeoBase/GeoBaseDialog.h"
+#include <adscodes.h>
 #include <tchar.h>
 #include <acutads.h>
 
@@ -17,6 +19,14 @@
 KONYX_COMMAND(L"KONYX", L"KonCalculsVersion", L"KCVERSION", 0, KonCalculsVersion)
 {
     acutPrintf(_T("\n[Kon. Calculs] squelette operationnel - v0.1\n"));
+}
+
+extern "C" HWND adsw_acadMainWnd();
+
+KONYX_COMMAND(L"KONYX", L"KonCalculsEditionGeoBase", L"KONCALEDITIONGEOBASE", 0, KonCalculsEditionGeoBase)
+{
+    Konyx::GeoBaseDialog dlg(L"");
+    dlg.Afficher(adsw_acadMainWnd());
 }
 
 // --- Prochaines commandes a implementer ici, par exemple : ---

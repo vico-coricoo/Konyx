@@ -1,0 +1,231 @@
+<?xml version="1.0"?><MenuGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="KONYX" DisplayName="KONYX">
+  <MacroGroup Name="KONYXMacros">
+    <!-- - - - - - - - - - - - - - - - - - - - - - - COMMANDE EDITION GEOBASE - - - - - - - - - - - - - - - - - - - - - - -->
+    <MenuMacro UID="ID_KON_CALCULS_CMD_EDITION_GEOBASE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="0" />
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+        <Name xlate="false" UID="ID_KON_CALCULS_CMD_EDITION_GEOBASE_NAME">Édition Géobase</Name>
+        <Command>^C^CKONCALEDITIONGEOBASE </Command>
+        <HelpString xlate="false" UID="ID_KON_CALCULS_CMD_EDITION_GEOBASE_HELP">Ouvre la géobase à modifier</HelpString>
+        <SmallImage Name="KON_CAL_geobase.png" />
+        <LargeImage Name="KON_CAL_geobase.png" />
+        <CLICommand xlate="false" UID="ID_KON_CALCULS_CMD_EDITION_GEOBASE_CLI">KONCALEDITIONGEOBASE</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - GROUPE 1 CALCULS - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - COMMANDE CALCUL D'INTERSETIONS - - - - - - - - - - - - - - - - - - - - - - -->
+    <MenuMacro UID="ID_KON_CALCULS_CMD_CAL_INTERSECTIONS">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="0" />
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+        <Name xlate="false" UID="ID_KON_CALCULS_CMD_CAL_INTERSECTIONS_NAME">Calcul d'intersections</Name>
+        <Command>^C^C_line 0,10 10,0 </Command>
+        <HelpString xlate="false" UID="ID_KON_CALCULS_CMD_CAL_INTERSECTIONS_HELP">...</HelpString>
+        <SmallImage Name="KON_CAL_cal_intersections.png" />
+        <LargeImage Name="KON_CAL_cal_intersections.png" />
+        <CLICommand xlate="false" UID="ID_KON_CALCULS_CMD_CAL_INTERSECTIONS_CLI">KONCALINTERSECTIONS</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - COMMANDE CALCUL DE RELEVEMENTS - - - - - - - - - - - - - - - - - - - - - - -->
+    <MenuMacro UID="ID_KON_CALCULS_CMD_CAL_RELEVEMENTS">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="0" />
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+        <Name xlate="false" UID="ID_KON_CALCULS_CMD_CAL_RELEVEMENTS_NAME">Calcul de relèvements</Name>
+        <Command>^C^C_line 0,10 10,0 </Command>
+        <HelpString xlate="false" UID="ID_KON_CALCULS_CMD_CAL_RELEVEMENTS_HELP">...</HelpString>
+        <SmallImage Name="KON_CAL_cal_relevements.png" />
+        <LargeImage Name="KON_CAL_cal_relevements.png" />
+        <CLICommand xlate="false" UID="ID_KON_CALCULS_CMD_CAL_RELEVEMENTS_CLI">KONCALRELEVEMENTS</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - COMMANDE CALCUL DE RECOUPEMENTS - - - - - - - - - - - - - - - - - - - - - - -->
+    <MenuMacro UID="ID_KON_CALCULS_CMD_CAL_RECOUPEMENTS">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="0" />
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+        <Name xlate="false" UID="ID_KON_CALCULS_CMD_CAL_RECOUPEMENTS_NAME">Calcul de recoupements</Name>
+        <Command>^C^C_line 0,10 10,0 </Command>
+        <HelpString xlate="false" UID="ID_KON_CALCULS_CMD_CAL_RECOUPEMENTS_HELP">...</HelpString>
+        <SmallImage Name="KON_CAL_cal_recoupements.png" />
+        <LargeImage Name="KON_CAL_cal_recoupements.png" />
+        <CLICommand xlate="false" UID="ID_KON_CALCULS_CMD_CAL_RECOUPEMENTS_CLI">KONCALRECOUPEMENTS</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - COMMANDE CALCUL DE STATIONS DECALEES - - - - - - - - - - - - - - - - - - - - - - -->
+    <MenuMacro UID="ID_KON_CALCULS_CMD_CAL_ST_DECALEES">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="0" />
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+        <Name xlate="false" UID="ID_KON_CALCULS_CMD_CAL_ST_DECALEES_NAME">Calcul de stations décalées</Name>
+        <Command>^C^C_line 0,10 10,0 </Command>
+        <HelpString xlate="false" UID="ID_KON_CALCULS_CMD_CAL_ST_DECALEES_HELP">...</HelpString>
+        <CLICommand xlate="false" UID="ID_KON_CALCULS_CMD_CAL_ST_DECALEES_CLI">KONCALSTDECALEES</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - COMMANDE CALCUL DE TRIANGULATION - - - - - - - - - - - - - - - - - - - - - - -->
+    <MenuMacro UID="ID_KON_CALCULS_CMD_CAL_TRIANGULATION">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="0" />
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+        <Name xlate="false" UID="ID_KON_CALCULS_CMD_CAL_TRIANGULATION_NAME">Calcul de triangulation</Name>
+        <Command>^C^C_line 0,10 10,0 </Command>
+        <HelpString xlate="false" UID="ID_KON_CALCULS_CMD_CAL_TRIANGULATION_HELP">...</HelpString>
+        <SmallImage Name="KON_CAL_cal_triangulation.png" />
+        <LargeImage Name="KON_CAL_cal_triangulation.png" />
+        <CLICommand xlate="false" UID="ID_KON_CALCULS_CMD_CAL_TRIANGULATION_CLI">KONCALTRIANGULATION</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - COMMANDE CALCUL DES V0 - - - - - - - - - - - - - - - - - - - - - - -->
+    <MenuMacro UID="ID_KON_CALCULS_CMD_CAL_V0">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="0" />
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+        <Name xlate="false" UID="ID_KON_CALCULS_CMD_CAL_V0_NAME">Calcul des V0</Name>
+        <Command>^C^C_line 0,10 10,0 </Command>
+        <HelpString xlate="false" UID="ID_KON_CALCULS_CMD_CAL_V0_HELP">...</HelpString>
+        <SmallImage Name="KON_CAL_cal_V0.png" />
+        <LargeImage Name="KON_CAL_cal_V0.png" />
+        <CLICommand xlate="false" UID="ID_KON_CALCULS_CMD_CAL_V0_CLI">KONCALGISEMENTS</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - COMMANDE CALCUL DES CHEMINEMENTS - - - - - - - - - - - - - - - - - - - - - - -->
+    <MenuMacro UID="ID_KON_CALCULS_CMD_CAL_CHEMINEMENTS">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="0" />
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+        <Name xlate="false" UID="ID_KON_CALCULS_CMD_CAL_CHEMINEMENTS_NAME">Calcul des cheminements</Name>
+        <Command>^C^C_line 0,10 10,0 </Command>
+        <HelpString xlate="false" UID="ID_KON_CALCULS_CMD_CAL_CHEMINEMENTS_HELP">...</HelpString>
+        <SmallImage Name="KON_CAL_cal_cheminements.png" />
+        <LargeImage Name="KON_CAL_cal_cheminements.png" />
+        <CLICommand xlate="false" UID="ID_KON_CALCULS_CMD_CAL_CHEMINEMENTS_CLI">KONCALCHEMINEMENTS</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - COMMANDE CALCUL EN BLOC - - - - - - - - - - - - - - - - - - - - - - -->
+    <MenuMacro UID="ID_KON_CALCULS_CMD_CAL_BLOC">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="0" />
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+        <Name xlate="false" UID="ID_KON_CALCULS_CMD_CAL_BLOC_NAME">Calcul en bloc</Name>
+        <Command>^C^C_line 0,10 10,0 </Command>
+        <HelpString xlate="false" UID="ID_KON_CALCULS_CMD_CAL_BLOC_HELP">...</HelpString>
+        <SmallImage Name="KON_CAL_cal_bloc.png" />
+        <LargeImage Name="KON_CAL_cal_bloc.png" />
+        <CLICommand xlate="false" UID="ID_KON_CALCULS_CMD_CAL_BLOC_CLI">KONCALBLOC</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - COMMANDE CALCUL DES POINTS RAYONNES - - - - - - - - - - - - - - - - - - - - - - -->
+    <MenuMacro UID="ID_KON_CALCULS_CMD_CAL_PTS_RAYONNES">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="0" />
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+        <Name xlate="false" UID="ID_KON_CALCULS_CMD_CAL_PTS_RAYONNES_NAME">Calcul des points rayonnés</Name>
+        <Command>^C^C_line 0,10 10,0 </Command>
+        <HelpString xlate="false" UID="ID_KON_CALCULS_CMD_CAL_PTS_RAYONNES_HELP">...</HelpString>
+        <SmallImage Name="KON_CAL_cal_points_rayonnes.png" />
+        <LargeImage Name="KON_CAL_cal_points_rayonnes.png" />
+        <CLICommand xlate="false" UID="ID_KON_CALCULS_CMD_CAL_PTS_RAYONNES_CLI">KONCALPOINTSRAY</CLICommand>
+      </Macro>
+    </MenuMacro>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - GROUPE 2 NIVELLEMENT - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - COMMANDE NIVELLEMENTS DIRECT SIMPLE - - - - - - - - - - - - - - - - - - - - - - -->
+    <MenuMacro UID="ID_KON_CALCULS_CMD_NIV_DIRECT_SIMPLE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="0" />
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+        <Name xlate="false" UID="ID_KON_CALCULS_CMD_NIV_DIRECT_SIMPLE_NAME">Nivellement direct simple</Name>
+        <Command>^C^C_line 0,10 10,0 </Command>
+        <HelpString xlate="false" UID="ID_KON_CALCULS_CMD_NIV_DIRECT_SIMPLE_HELP">...</HelpString>
+        <SmallImage Name="KON_CAL_niv_direct_simple.png" />
+        <LargeImage Name="KON_CAL_cal_points_rayonnes.png" />
+        <CLICommand xlate="false" UID="ID_KON_CALCULS_CMD_NIV_DIRECT_SIMPLE_CLI">KONCALNIVSIMPLE</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - COMMANDE NIVELLEMENTS DOUBLE STATION - - - - - - - - - - - - - - - - - - - - - - -->
+    <MenuMacro UID="ID_KON_CALCULS_CMD_NIV_DOUBLE_STATION">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="0" />
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+        <Name xlate="false" UID="ID_KON_CALCULS_CMD_NIV_DOUBLE_STATION_NAME">Nivellement direct simple</Name>
+        <Command>^C^C_line 0,10 10,0 </Command>
+        <HelpString xlate="false" UID="ID_KON_CALCULS_CMD_NIV_DOUBLE_STATION_HELP">...</HelpString>
+        <CLICommand xlate="false" UID="ID_KON_CALCULS_CMD_NIV_DOUBLE_STATION_CLI">KONCALNIVDOUBLEST</CLICommand>
+      </Macro>
+    </MenuMacro>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - GROUPE 3 TABLES - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - COMMANDE FUSION D'UNE CODIFICATION - - - - - - - - - - - - - - - - - - - - - - -->
+    <MenuMacro UID="ID_KON_CALCULS_CMD_FUSION_CODIF">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="0" />
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+        <Name xlate="false" UID="ID_KON_CALCULS_CMD_FUSION_CODIF_NAME">Fusion d'une codification</Name>
+        <Command>^C^C_line 0,10 10,0 </Command>
+        <HelpString xlate="false" UID="ID_KON_CALCULS_CMD_FUSION_CODIF_HELP">...</HelpString>
+        <CLICommand xlate="false" UID="ID_KON_CALCULS_CMD_FUSION_CODIF_CLI">KONCALFUSIONCODIF</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - COMMANDE EDITION TABLE DE CODES - - - - - - - - - - - - - - - - - - - - - - -->
+    <MenuMacro UID="ID_KON_CALCULS_CMD_EDIT_TABLE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="0" />
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+        <Name xlate="false" UID="ID_KON_CALCULS_CMD_EDIT_TABLE_NAME">Édition table de codes</Name>
+        <Command>^C^C_line 0,10 10,0 </Command>
+        <HelpString xlate="false" UID="ID_KON_CALCULS_CMD_EDIT_TABLE_HELP">...</HelpString>
+        <CLICommand xlate="false" UID="ID_KON_CALCULS_CMD_EDIT_TABLE_CLI">KONCALEDITTABLE</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - COMMANDE GENERATION DU DESSIN - - - - - - - - - - - - - - - - - - - - - - -->
+    <MenuMacro UID="ID_KON_CALCULS_CMD_GENERATION_DESSIN">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="0" />
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+        <Name xlate="false" UID="ID_KON_CALCULS_CMD_GENERATION_DESSIN_NAME">Génération du dessin</Name>
+        <Command>^C^C_line 0,10 10,0 </Command>
+        <HelpString xlate="false" UID="ID_KON_CALCULS_CMD_GENERATION_DESSIN_HELP">...</HelpString>
+        <CLICommand xlate="false" UID="ID_KON_CALCULS_CMD_GENERATION_DESSIN_CLI">KONCALGENERATIONDESSIN</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - COMMANDE EDITION TABLE DE CODES - - - - - - - - - - - - - - - - - - - - - - -->
+    <MenuMacro UID="ID_KON_CALCULS_CMD_PALETTE">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="0" />
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+        <Name xlate="false" UID="ID_KON_CALCULS_CMD_PALETTE_NAME">Table =&gt; Palette d'outils</Name>
+        <Command>^C^C_line 0,10 10,0 </Command>
+        <HelpString xlate="false" UID="ID_KON_CALCULS_CMD_PALETTE_HELP">...</HelpString>
+        <CLICommand xlate="false" UID="ID_KON_CALCULS_CMD_PALETTE_CLI">KONCALPALETTE</CLICommand>
+      </Macro>
+    </MenuMacro>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - GROUPE 4 FOOTER - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - COMMANDE OPTIONS - - - - - - - - - - - - - - - - - - - - - - -->
+    <MenuMacro UID="ID_KON_CALCULS_CMD_OPTIONS">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="0" />
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+        <Name xlate="false" UID="ID_KON_CALCULS_CMD_OPTIONS_NAME">Options...</Name>
+        <Command>^C^CKCVERSION </Command>
+        <HelpString xlate="false" UID="ID_KON_CALCULS_CMD_OPTIONS_HELP">...</HelpString>
+        <SmallImage Name="GLOB_options.png" />
+        <LargeImage Name="GLOB_options.png" />
+        <CLICommand xlate="false" UID="ID_KON_CALCULS_CMD_OPTIONS_CLI">KONCALOPTIONS</CLICommand>
+      </Macro>
+    </MenuMacro>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - COMMANDE A PROPOS - - - - - - - - - - - - - - - - - - - - - - -->
+    <MenuMacro UID="ID_KON_CALCULS_CMD_A_PROPOS">
+      <Macro type="Any">
+        <Revision MajorVersion="16" MinorVersion="2" UserVersion="0" />
+        <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+        <Name xlate="false" UID="ID_KON_CALCULS_CMD_A_PROPOS_NAME">À propos de KONYX...</Name>
+        <Command>^C^CKCVERSION </Command>
+        <HelpString xlate="false" UID="ID_KON_CALCULS_CMD_A_PROPOS_HELP">Ouvre le panneau d'information concernant le logiciel KONYX</HelpString>
+        <CLICommand xlate="false" UID="ID_KON_CALCULS_CMD_A_PROPOS_CLI">KONAPROPOS</CLICommand>
+      </Macro>
+    </MenuMacro>
+  </MacroGroup>
+</MenuGroup>

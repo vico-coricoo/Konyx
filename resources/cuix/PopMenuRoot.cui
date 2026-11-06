@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PopMenuRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <PopMenu hasDiesel="false" UID="ID_KON_CALCULS_MENU">
+    <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+    <Alias>POP1</Alias>
+    <Name xlate="true" UID="ID_KON_POP_CALCULS">Kon. Calculs</Name>
+    <!-- - - - - - - - - - - - - - - - - - - - LECTURES CARNET - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuRef pUID="PID_KON_CALCULS_LECTURES_CARNET" UID="ID_KON_CALCULS_LECTURES_CARNET">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <!-- - - - - - - - - - - - - - - - - - - - SEPARATEUR N°1 - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="ID_KON_CALCULS_SEP1">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - EXPORTATION CARNET - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuRef pUID="PID_KON_CALCULS_EXPORTATION_CARNET" UID="ID_KON_CALCULS_EXPORTATION_CARNET">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+    </PopMenuRef>
+    <!-- - - - - - - - - - - - - - - - - - - - SEPARATEUR N°2 - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="ID_KON_CALCULS_SEP2">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - EDITION GEOBASE - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="ID_KON_CALCULS_EDITION_GEOBASE">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="ID_KON_CALCULS_EDITION_GEOBASE_NAME" xlate="true">Édition Géobase</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ID_KON_CALCULS_CMD_EDITION_GEOBASE" />
+      </MenuItem>
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - SEPARATEUR N°3 - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="ID_KON_CALCULS_SEP3">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - CALCUL D'INTERSECTIONS - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="ID_KON_CALCULS_CAL_INTERSECTIONS">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="ID_KON_CALCULS_CAL_INTERSECTIONS_NAME" xlate="true">Calcul d'intersections</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ID_KON_CALCULS_CMD_CAL_INTERSECTIONS" />
+      </MenuItem>
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - CALCUL DE RELEVEMENTS - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="ID_KON_CALCULS_CAL_RELEVEMENTS">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="ID_KON_CALCULS_CAL_RELEVEMENTS_NAME" xlate="true">Calcul de relèvements</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ID_KON_CALCULS_CMD_CAL_RELEVEMENTS" />
+      </MenuItem>
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - CALCUL DE RECOUPEMENTS - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="ID_KON_CALCULS_CAL_RECOUPEMENTS">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="ID_KON_CALCULS_CAL_RECOUPEMENTS_NAME" xlate="true">Calcul de recoupements</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ID_KON_CALCULS_CMD_CAL_RECOUPEMENTS" />
+      </MenuItem>
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - CALCUL DE STATIONS DECALEES - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="ID_KON_CALCULS_CAL_STATIONS_DECALEES">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="ID_KON_CALCULS_CAL_STATIONS_DECALEES_NAME" xlate="true">Calcul de stations décalées</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ID_KON_CALCULS_CMD_CAL_ST_DECALEES" />
+      </MenuItem>
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - CALCUL DE TRIANGULATION - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="ID_KON_CALCULS_CAL_TRIANGULATION">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="ID_KON_CALCULS_CAL_TRIANGULATION_NAME" xlate="true">Calcul de triangulation</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ID_KON_CALCULS_CMD_CAL_TRIANGULATION" />
+      </MenuItem>
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - CALCUL DES V0 - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="ID_KON_CALCULS_CAL_V0">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="ID_KON_CALCULS_CAL_V0_NAME" xlate="true">Calcul des V0</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ID_KON_CALCULS_CMD_CAL_V0" />
+      </MenuItem>
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - CALCUL DES CHEMINEMENTS - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="ID_KON_CALCULS_CAL_CHEMINEMENTS">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="ID_KON_CALCULS_CAL_CHEMINEMENTS_NAME" xlate="true">Calcul des cheminements</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ID_KON_CALCULS_CMD_CAL_CHEMINEMENTS" />
+      </MenuItem>
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - CALCUL EN BLOC - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="ID_KON_CALCULS_CAL_BLOC">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="ID_KON_CALCULS_CAL_BLOC_NAME" xlate="true">Calcul en bloc</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ID_KON_CALCULS_CMD_CAL_BLOC" />
+      </MenuItem>
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - CALCUL DES POINTS RAYONNES - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="ID_KON_CALCULS_CAL_POINTS_RAYONNES">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="ID_KON_CALCULS_CAL_POINTS_RAYONNES_NAME" xlate="true">Calcul des points rayonnés</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ID_KON_CALCULS_CMD_CAL_PTS_RAYONNES" />
+      </MenuItem>
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - SEPARATEUR N°4 - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="ID_KON_CALCULS_SEP4">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - NIVELLEMENT DIRECT SIMPLE - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="ID_KON_CALCULS_NIV_DIRECT_SIMPLE">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="ID_KON_CALCULS_NIV_DIRECT_SIMPLE_NAME" xlate="true">Nivellement direct simple</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ID_KON_CALCULS_CMD_NIV_DIRECT_SIMPLE" />
+      </MenuItem>
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - NIVELLEMENT DOUBLE STATION - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="ID_KON_CALCULS_NIV_DOUBLE_STATION">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="ID_KON_CALCULS_NIV_DOUBLE_STATION_NAME" xlate="true">Nivellement double station</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ID_KON_CALCULS_CMD_NIV_DOUBLE_STATION" />
+      </MenuItem>
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - SEPARATEUR N°5 - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="ID_KON_CALCULS_SEP5">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - FUSION D'UNE CODIFICATION - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="ID_KON_CALCULS_FUSION_CODIF">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="ID_KON_CALCULS_FUSION_CODIF_NAME" xlate="true">Fusion d'une codification</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ID_KON_CALCULS_CMD_FUSION_CODIF" />
+      </MenuItem>
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - EDITION TABLE DE CODES - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="ID_KON_CALCULS_EDITION_TABLE_CODES">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="ID_KON_CALCULS_EDITION_TABLE_CODES_NAME" xlate="true">Édition table de codes</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ID_KON_CALCULS_CMD_EDIT_TABLE" />
+      </MenuItem>
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - GENERATION DU DESSIN - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="ID_KON_CALCULS_GENERATION_DESSIN">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="ID_KON_CALCULS_GENERATION_DESSIN_NAME" xlate="true">Génération du dessin</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ID_KON_CALCULS_CMD_GENERATION_DESSIN" />
+      </MenuItem>
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - TABLE => PALETTE D'OUTILS - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="ID_KON_CALCULS_PALETTE_OUTILS">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="ID_KON_CALCULS_PALETTE_OUTILS_NAME" xlate="true">Table =&gt; Palette d'outils</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ID_KON_CALCULS_CMD_PALETTE" />
+      </MenuItem>
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - SEPARATEUR N°6 - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="ID_KON_CALCULS_SEP6">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - OPTIONS - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="ID_KON_CALCULS_OPTIONS">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="ID_KON_CALCULS_OPTIONS_NAME" xlate="true">Options...</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ID_KON_CALCULS_CMD_OPTIONS" />
+      </MenuItem>
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - SEPARATEUR N°7 - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="ID_KON_CALCULS_SEP7">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+    <!-- - - - - - - - - - - - - - - - - - - - A PROPOS DE KONYX - - - - - - - - - - - - - - - - - - - -->
+    <PopMenuItem IsSeparator="false" hasDiesel="false" UID="ID_KON_CALCULS_A_PROPOS">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+      <NameRef UID="ID_KON_CALCULS_A_PROPOS_NAME" xlate="true">À propos de KONYX...</NameRef>
+      <MenuItem>
+        <MacroRef MenuMacroID="ID_KON_CALCULS_CMD_A_PROPOS" />
+      </MenuItem>
+    </PopMenuItem>
+  </PopMenu>
+
+  <!-- - - - - - - - - - - - - - - - - DECLARATIONS DES SOUS MENUS - - - - - - - - - - - - - - - - -->
+  <!-- - - - - - - - - - - - - - - - - DECLARATIONS LECTURES CARNET - - - - - - - - - - - - - - - - -->
+  <PopMenu hasDiesel="false" UID="PID_KON_CALCULS_LECTURES_CARNET">
+    <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="ID_KON_CALCULS_LECTURES_CARNET_NAME">Lectures carnet</Name>
+
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PID_KON_CALCULS_SEP1">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+  </PopMenu>
+  <!-- - - - - - - - - - - - - - - - - DECLARATIONS EXPORTATION CARNET - - - - - - - - - - - - - - - - -->
+  <PopMenu hasDiesel="false" UID="PID_KON_CALCULS_EXPORTATION_CARNET">
+    <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+    <Name xlate="true" UID="ID_KON_CALCULS_EXPORTATION_CARNET_NAME">Exportation carnet</Name>
+
+    <PopMenuItem IsSeparator="true" hasDiesel="false" UID="PID_KON_CALCULS_SEP2">
+      <ModifiedRev MajorVersion="26" MinorVersion="0" UserVersion="1" />
+    </PopMenuItem>
+  </PopMenu>
+</PopMenuRoot>

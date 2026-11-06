@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+<Relationship Type="CUI" Target="/Header.cui" Id="R0000000000000001" />
+<Relationship Type="CUI" Target="/MenuGroup.cui" Id="R0000000000000002" />
+<Relationship Type="CUI" Target="/PopMenuRoot.cui" Id="R0000000000000003" />
+<Relationship Type="CUI" Target="/RibbonRoot.cui" Id="R0000000000000004" />
+
+<Relationship Type="Image" Target="GLOB_options.png" Id="GLOBIMG00001" />
+
+<Relationship Type="Image" Target="KON_CAL_geobase.png" Id="KONCALIMG00001" />
+<Relationship Type="Image" Target="KON_CAL_cal_intersections.png" Id="KONCALIMG00002" />
+<Relationship Type="Image" Target="KON_CAL_cal_relevements.png" Id="KONCALIMG00003" />
+<Relationship Type="Image" Target="KON_CAL_cal_recoupements.png" Id="KONCALIMG00004" />
+<Relationship Type="Image" Target="KON_CAL_cal_triangulation.png" Id="KONCALIMG00005" />
+<Relationship Type="Image" Target="KON_CAL_cal_V0.png" Id="KONCALIMG00006" />
+<Relationship Type="Image" Target="KON_CAL_cal_cheminements.png" Id="KONCALIMG00007" />
+<Relationship Type="Image" Target="KON_CAL_cal_bloc.png" Id="KONCALIMG00008" />
+<Relationship Type="Image" Target="KON_CAL_cal_points_rayonnes.png" Id="KONCALIMG00009" />
+<Relationship Type="Image" Target="KON_CAL_niv_direct_simple.png" Id="KONCALIMG00010" />
+</Relationships>
