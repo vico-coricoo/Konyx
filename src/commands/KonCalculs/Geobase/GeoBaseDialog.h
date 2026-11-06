@@ -39,14 +39,20 @@
 #define ID_EDITION_XY_VARIABLE      2120
 #define ID_EDITION_Z_VARIABLE       2121
 
-#define ID_AFFICHE_STATIONS         2201
-#define ID_AFFICHE_MESURES          2202
-#define ID_AFFICHE_REFERENCES       2203
-#define ID_AFFICHE_POINTS           2204
-#define ID_AFFICHE_CHEMINEMENTS     2205
-#define ID_AFFICHE_LECTURES_NIV     2206
-#define ID_AFFICHE_TOUT             2207
-#define ID_AFFICHE_RIEN             2208
+#define ID_AFFICHE_TOUT             2201
+#define ID_AFFICHE_RIEN             2202
+#define ID_AFFICHE_STATIONS         2203
+#define ID_AFFICHE_REFERENCES       2204
+#define ID_AFFICHE_MESURES          2205
+#define ID_AFFICHE_POINTS           2206
+#define ID_AFFICHE_LECTURES_NIV     2207
+#define ID_AFFICHE_COMMENTAIRES     2208
+#define ID_AFFICHE_COMMANDES        2209
+#define ID_AFFICHE_DEF_CALCULS      2210
+#define ID_AFFICHE_APPAREIL         2211
+#define ID_AFFICHE_PHOTOS           2212
+#define ID_AFFICHE_INVERSE_COORDS   2213
+
 
 #define ID_LECTURE_1                2301
 #define ID_LECTURE_2                2302
@@ -181,13 +187,21 @@ private:
 
     // MENU AFFICHAGE
     void CreerMenuAffichage();
+    void ToggleAffichageTotal();
+    void ToggleAffichageVide();
     void ToggleAffichageStations();
-    void ToggleAffichageMesures();
     void ToggleAffichageReferences();
+    void ToggleAffichageMesures();
     void ToggleAffichagePoints();
-    void ToggleAffichageCheminements();
     void ToggleAffichageLecturesNiv();
-    void ToggleAffichageTotal(bool typeAffichage);
+    void ToggleAffichageCommentaires();
+    void ToggleAffichageCommandes();
+    void ToggleAffichageDefinitionsCalculs();
+    void ToggleAffichageAppareils();
+    void ToggleAffichagePhotos();
+
+    void InverserCoords_X_Y();
+    
 
     // MENU LECTURE
     void CreerMenuLecture();
@@ -265,6 +279,25 @@ private:
     GeoBaseEntete m_entete;
     std::vector<GeoRecord> m_enregistrements;
     bool m_modifie = false;
+
+    // Filtrage d'affichage (menu Affichage) : n'affecte que la liste,
+    // jamais m_enregistrements. m_indexListeVersReel[i] donne l'index
+    // reel dans m_enregistrements correspondant a la ligne i de la ListView.
+    bool m_afficheStations = true;
+    bool m_afficheReferences = true;
+    bool m_afficheMesures = true;
+    bool m_affichePoints = true;
+    bool m_afficheLecturesNiv = true;
+    bool m_afficheCommentaires = true;
+    bool m_afficheCommandes = true;
+    bool m_afficheDefinitionsCalculs = true;
+    bool m_afficheAppareils = true;
+    bool m_affichePhotos = true;
+    std::vector<int> m_indexListeVersReel;
+
+    bool TypeEstAffiche(GeoType type) const;
+    int IndexReel(int indexListe) const; // -1 si hors bornes
+
 
     static constexpr wchar_t ClasseFenetre[] = L"KonyxGeoBaseDialogClass";
     static constexpr int ID_LISTE = 1001;

@@ -130,6 +130,27 @@ void GeoBaseDialog::RenumeroterLignes() {
     }
 }
 
+bool GeoBaseDialog::TypeEstAffiche(GeoType type) const {
+    switch (type) {
+    case GeoType::Station:       return m_afficheStations;
+    case GeoType::Reference:     return m_afficheReferences;
+    case GeoType::Mesure:        return m_afficheMesures;
+    case GeoType::Point:         return m_affichePoints;
+    case GeoType::NivLectAR:
+    case GeoType::NivLectAV:     return m_afficheLecturesNiv;
+    case GeoType::Commentaire:   return m_afficheCommentaires;
+    case GeoType::Appareil:      return m_afficheAppareils;
+    case GeoType::Photo:         return m_affichePhotos;
+    default:                     return true;
+    }
+}
+
+int GeoBaseDialog::IndexReel(int indexListe) const {
+    if (indexListe < 0 || indexListe >= static_cast<int>(m_indexListeVersReel.size()))
+        return -1;
+    return m_indexListeVersReel[indexListe];
+}
+
 LRESULT CALLBACK GeoBaseDialog::FenetreProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     if (msg == WM_NCCREATE) {
         auto* pCreate = reinterpret_cast<CREATESTRUCT*>(lParam);
@@ -225,8 +246,9 @@ LRESULT GeoBaseDialog::GererMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM l
                     return CDRF_NOTIFYITEMDRAW;
                 case CDDS_ITEMPREPAINT: {
                     int idx = static_cast<int>(pcd->nmcd.dwItemSpec);
-                    if (idx >= 0 && idx < static_cast<int>(m_enregistrements.size())) {
-                        pcd->clrText = CouleurPourType(m_enregistrements[idx].type);
+                    int reel = IndexReel(idx);
+                    if (reel >= 0 && reel < static_cast<int>(m_enregistrements.size())) {
+                        pcd->clrText = CouleurPourType(m_enregistrements[reel].type);
                     }
                     SetWindowLongPtr(hwnd, DWLP_MSGRESULT, CDRF_DODEFAULT);
                     return CDRF_DODEFAULT;
@@ -289,15 +311,20 @@ LRESULT GeoBaseDialog::GererMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM l
 
 
         //menu affichage
-        if (id == ID_AFFICHE_STATIONS) { ToggleAffichageStations(); return 0; }
-        if (id == ID_AFFICHE_MESURES) { ToggleAffichageMesures(); return 0; }
-        if (id == ID_AFFICHE_REFERENCES) { ToggleAffichageReferences(); return 0; }
-        if (id == ID_AFFICHE_POINTS) { ToggleAffichagePoints(); return 0; }
-        if (id == ID_AFFICHE_CHEMINEMENTS) { ToggleAffichageCheminements(); return 0; }
-        if (id == ID_AFFICHE_LECTURES_NIV) { ToggleAffichageLecturesNiv(); return 0; }
-        if (id == ID_AFFICHE_TOUT) { ToggleAffichageTotal(true); return 0; }
-        if (id == ID_AFFICHE_RIEN) { ToggleAffichageTotal(false); return 0; }
-
+        if (id == ID_AFFICHE_TOUT)           { ToggleAffichageTotal(); return 0; }
+        if (id == ID_AFFICHE_RIEN)           { ToggleAffichageVide(); return 0; }
+        if (id == ID_AFFICHE_STATIONS)       { ToggleAffichageStations(); return 0; }
+        if (id == ID_AFFICHE_REFERENCES)     { ToggleAffichageReferences(); return 0; }
+        if (id == ID_AFFICHE_MESURES)        { ToggleAffichageMesures(); return 0; }
+        if (id == ID_AFFICHE_POINTS)         { ToggleAffichagePoints(); return 0; }
+        if (id == ID_AFFICHE_LECTURES_NIV)   { ToggleAffichageLecturesNiv(); return 0; }
+        if (id == ID_AFFICHE_COMMENTAIRES)   { ToggleAffichageCommentaires(); return 0; }
+        if (id == ID_AFFICHE_COMMANDES)      { ToggleAffichageCommandes(); return 0; }
+        if (id == ID_AFFICHE_DEF_CALCULS)    { ToggleAffichageDefinitionsCalculs(); return 0; }
+        if (id == ID_AFFICHE_APPAREIL)       { ToggleAffichageAppareils(); return 0; }
+        if (id == ID_AFFICHE_PHOTOS)         { ToggleAffichagePhotos(); return 0; }
+        if (id == ID_AFFICHE_INVERSE_COORDS) { InverserCoords_X_Y(); return 0; }
+        
 
         //menu lecture
         //...
@@ -305,52 +332,52 @@ LRESULT GeoBaseDialog::GererMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM l
 
 
         //menu export
-        if (id == ID_EXPORT_GEOBASE) { ToggleAffichageStations(); return 0; }
-        if (id == ID_EXPORT_TRIMBLE) { ToggleAffichageStations(); return 0; }
-        if (id == ID_EXPORT_LEICA_WILD) { ToggleAffichageMesures(); return 0; }
-        if (id == ID_EXPORT_SOKKIA) { ToggleAffichageReferences(); return 0; }
-        if (id == ID_EXPORT_SEPARATEUR) { ToggleAffichagePoints(); return 0; }
-        if (id == ID_EXPORT_COLONNE) { ToggleAffichageCheminements(); return 0; }
-        if (id == ID_EXPORT_TOPOJIS) { ToggleAffichageLecturesNiv(); return 0; }
-        if (id == ID_EXPORT_DXF) { ToggleAffichageLecturesNiv(); return 0; }
-        if (id == ID_EXPORT_POINTS) { ToggleAffichageLecturesNiv(); return 0; }
-        if (id == ID_EXPORT_LEICA_DBX) { ToggleAffichageLecturesNiv(); return 0; }
+        if (id == ID_EXPORT_GEOBASE)    { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_EXPORT_TRIMBLE)    { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_EXPORT_LEICA_WILD) { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_EXPORT_SOKKIA)     { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_EXPORT_SEPARATEUR) { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_EXPORT_COLONNE)    { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_EXPORT_TOPOJIS)    { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_EXPORT_DXF)        { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_EXPORT_POINTS)     { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_EXPORT_LEICA_DBX)  { ActionCalculerV0Stations(); return 0; }
 
 
         //menu calculs
-        if (id == ID_CALCULS_INTERSECTIONS) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_CALCULS_INTER_PLAN_VERT) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_CALCULS_RELEVEMENTS) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_CALCULS_RECOUPEMENTS) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_CALCULS_STATIONS_DEC) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_CALCULS_TRIANGULATION) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_CALCULS_V0_STATIONS) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_CALCULS_CHEMINEMENT_POLY) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_CALCULS_CALCUL_BLOC) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_CALCULS_POINTS_RAYONNES) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_CALCULS_NUAGE_POINTS) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_CALCULS_NIV_SIMPLE) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_CALCULS_NIV_DOUBLE_MIRE) { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_CALCULS_INTERSECTIONS)      { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_CALCULS_INTER_PLAN_VERT)    { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_CALCULS_RELEVEMENTS)        { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_CALCULS_RECOUPEMENTS)       { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_CALCULS_STATIONS_DEC)       { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_CALCULS_TRIANGULATION)      { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_CALCULS_V0_STATIONS)        { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_CALCULS_CHEMINEMENT_POLY)   { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_CALCULS_CALCUL_BLOC)        { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_CALCULS_POINTS_RAYONNES)    { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_CALCULS_NUAGE_POINTS)       { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_CALCULS_NIV_SIMPLE)         { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_CALCULS_NIV_DOUBLE_MIRE)    { ActionCalculerV0Stations(); return 0; }
         if (id == ID_CALCULS_NIV_DOUBLE_STATION) { ActionCalculerV0Stations(); return 0; }
 
 
         //menu outils
-        if (id == ID_OUTILS_SEARCH_MAT) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_OUTILS_SEARCH_SYMB) { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_OUTILS_SEARCH_MAT)           { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_OUTILS_SEARCH_SYMB)          { ActionCalculerV0Stations(); return 0; }
         if (id == ID_OUTILS_VISUALISATION_POLYGO) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_OUTILS_CHEMINEMENT_AUTO) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_OUTILS_REIMATRICULER) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_OUTILS_TEST_COHERENCE) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_OUTILS_CREER_POINTS) { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_OUTILS_CHEMINEMENT_AUTO)     { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_OUTILS_REIMATRICULER)        { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_OUTILS_TEST_COHERENCE)       { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_OUTILS_CREER_POINTS)         { ActionCalculerV0Stations(); return 0; }
         if (id == ID_OUTILS_CONTROLE_PTS_DOUBLES) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_OUTILS_ELIM_PTS_DOUBLES) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_OUTILS_TRI_FIN) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_OUTILS_TRI_ALTITUDE) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_OUTILS_CONTROLE_PRECISION) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_OUTILS_CHANGEMENT_SYSTEME) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_OUTILS_REDUCTION_REPRISES) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_OUTILS_CHANGEMENT_REPERE) { ActionCalculerV0Stations(); return 0; }
-        if (id == ID_OUTILS_OPTIONS) { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_OUTILS_ELIM_PTS_DOUBLES)     { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_OUTILS_TRI_FIN)              { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_OUTILS_TRI_ALTITUDE)         { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_OUTILS_CONTROLE_PRECISION)   { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_OUTILS_CHANGEMENT_SYSTEME)   { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_OUTILS_REDUCTION_REPRISES)   { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_OUTILS_CHANGEMENT_REPERE)    { ActionCalculerV0Stations(); return 0; }
+        if (id == ID_OUTILS_OPTIONS)              { ActionCalculerV0Stations(); return 0; }
 
 
         //menu contextuel
@@ -494,22 +521,39 @@ void GeoBaseDialog::ChargerFichier(const std::wstring& chemin) {
 
 void GeoBaseDialog::RafraichirListe() {
     int topIndexAvant = ListView_GetTopIndex(m_hwndListe);
-    std::vector<int> selectionAvant = IndicesSelectionnes();
+
+    // Convertit la selection courante (indices ListView) en indices reels
+    // AVANT de reconstruire la table de mapping, pour pouvoir la restaurer apres.
+    std::vector<int> selectionReelleAvant;
+    {
+        int i = -1;
+        while ((i = ListView_GetNextItem(m_hwndListe, i, LVNI_SELECTED)) != -1) {
+            int reel = IndexReel(i);
+            if (reel >= 0) selectionReelleAvant.push_back(reel);
+        }
+    }
 
     SendMessage(m_hwndListe, WM_SETREDRAW, FALSE, 0);
 
     ListView_DeleteAllItems(m_hwndListe);
+    m_indexListeVersReel.clear();
+
     for (size_t i = 0; i < m_enregistrements.size(); ++i) {
-        AjouterLigneListe(static_cast<int>(i), m_enregistrements[i]);
+        if (!TypeEstAffiche(m_enregistrements[i].type)) continue;
+        int ligneAffichee = static_cast<int>(m_indexListeVersReel.size());
+        AjouterLigneListe(ligneAffichee, m_enregistrements[i]);
+        m_indexListeVersReel.push_back(static_cast<int>(i));
     }
 
-    int nb = static_cast<int>(m_enregistrements.size());
-    for (int idx : selectionAvant) {
-        if (idx >= 0 && idx < nb) {
-            ListView_SetItemState(m_hwndListe, idx, LVIS_SELECTED, LVIS_SELECTED);
+    // Restaure la selection par index REEL, traduit vers le nouvel index liste.
+    for (int idxListe = 0; idxListe < static_cast<int>(m_indexListeVersReel.size()); ++idxListe) {
+        int reel = m_indexListeVersReel[idxListe];
+        if (std::find(selectionReelleAvant.begin(), selectionReelleAvant.end(), reel) != selectionReelleAvant.end()) {
+            ListView_SetItemState(m_hwndListe, idxListe, LVIS_SELECTED, LVIS_SELECTED);
         }
     }
 
+    int nb = static_cast<int>(m_indexListeVersReel.size());
     if (nb > 0) {
         int cible = (topIndexAvant >= 0 && topIndexAvant < nb) ? topIndexAvant : 0;
         ListView_EnsureVisible(m_hwndListe, nb - 1, FALSE);
@@ -563,7 +607,10 @@ COLORREF GeoBaseDialog::CouleurPourType(GeoType type) const {
     }
 }
 
-void GeoBaseDialog::GererDoubleClicListe(int index) {
+void GeoBaseDialog::GererDoubleClicListe(int indexListe) {
+    int index = IndexReel(indexListe);
+    if (index < 0) return;
+
     while (index >= 0 && index < static_cast<int>(m_enregistrements.size())) {
         GeoRecord& rec = m_enregistrements[index];
         std::optional<GeoType> typeSuivant;
@@ -586,7 +633,16 @@ void GeoBaseDialog::GererDoubleClicListe(int index) {
         RafraichirListe();
 
         if (!allerSuivant) break;
-        index += 1; // passe a la ligne suivante
+
+        // Pour enchainer sur la lecture suivante, il faut retrouver sa position
+        // dans la liste FILTREE (elle peut etre masquee par le filtre courant,
+        // ou son index reel avoir change apres le deplacement ci-dessus).
+        int indexSuivantReel = index + 1;
+        if (indexSuivantReel >= static_cast<int>(m_enregistrements.size())) break;
+
+        auto it = std::find(m_indexListeVersReel.begin(), m_indexListeVersReel.end(), indexSuivantReel);
+        if (it == m_indexListeVersReel.end()) break; // la ligne suivante est masquee : on s'arrete proprement
+        index = indexSuivantReel;
     }
 }
 
@@ -623,6 +679,9 @@ void GeoBaseDialog::Afficher(HWND hwndParent) {
         { FVIRTKEY | FCONTROL, 'G', ID_FICHIER_IMPRIMER_GEOBASE },
         { FVIRTKEY | FCONTROL, 'P', ID_FICHIER_IMPRIMER_LISTING },
         { FVIRTKEY | FCONTROL, 'Q', ID_FICHIER_QUITTER },
+
+        { FVIRTKEY | FCONTROL, 'T', ID_AFFICHE_TOUT },
+        { FVIRTKEY | FCONTROL, 'M', ID_AFFICHE_RIEN },
 
         { FVIRTKEY | FCONTROL, 'Z', ID_EDITION_ANNULER },
         { FVIRTKEY | FCONTROL, 'Y', ID_EDITION_RETABLIR },
@@ -937,7 +996,8 @@ std::vector<int> GeoBaseDialog::IndicesSelectionnes() const {
     std::vector<int> indices;
     int i = -1;
     while ((i = ListView_GetNextItem(m_hwndListe, i, LVNI_SELECTED)) != -1) {
-        indices.push_back(i);
+        int reel = IndexReel(i);
+        if (reel >= 0) indices.push_back(reel);
     }
     return indices;
 }
@@ -1318,52 +1378,172 @@ void GeoBaseDialog::ActionZConstant(bool constant) {
 
 void GeoBaseDialog::CreerMenuAffichage() {
     HMENU hMenuAffichage = CreatePopupMenu();
+    AppendMenu(hMenuAffichage, MF_STRING, ID_AFFICHE_TOUT, L"&Tout afficher\tCtrl+T");
+    AppendMenu(hMenuAffichage, MF_STRING, ID_AFFICHE_RIEN, L"Tout masquer\tCtrl+M");
     AppendMenu(hMenuAffichage, MF_STRING, ID_AFFICHE_STATIONS, L"&Stations");
-    AppendMenu(hMenuAffichage, MF_STRING, ID_AFFICHE_MESURES, L"&Mesures");
     AppendMenu(hMenuAffichage, MF_STRING, ID_AFFICHE_REFERENCES, L"&Références");
-    AppendMenu(hMenuAffichage, MF_STRING, ID_AFFICHE_POINTS, L"&Points");
-    AppendMenu(hMenuAffichage, MF_STRING, ID_AFFICHE_CHEMINEMENTS, L"&Cheminements");
+    AppendMenu(hMenuAffichage, MF_STRING, ID_AFFICHE_MESURES, L"&Mesures");
+    AppendMenu(hMenuAffichage, MF_STRING, ID_AFFICHE_POINTS, L"&Points (coordonnées)");
     AppendMenu(hMenuAffichage, MF_STRING, ID_AFFICHE_LECTURES_NIV, L"&Lectures de nivellement");
+    AppendMenu(hMenuAffichage, MF_STRING, ID_AFFICHE_COMMENTAIRES, L"&Commentaires");
+    AppendMenu(hMenuAffichage, MF_STRING, ID_AFFICHE_COMMANDES, L"C&ommandes");
+    AppendMenu(hMenuAffichage, MF_STRING, ID_AFFICHE_DEF_CALCULS, L"&Définitions de calculs");
+    AppendMenu(hMenuAffichage, MF_STRING, ID_AFFICHE_APPAREIL, L"&Appareils de terrain");
+    AppendMenu(hMenuAffichage, MF_STRING, ID_AFFICHE_PHOTOS, L"P&hotos");
     AppendMenu(hMenuAffichage, MF_SEPARATOR, 0, nullptr);
-    AppendMenu(hMenuAffichage, MF_STRING, ID_AFFICHE_TOUT, L"Tout &afficher");
-    AppendMenu(hMenuAffichage, MF_STRING, ID_AFFICHE_RIEN, L"Tout &masquer");
+    AppendMenu(hMenuAffichage, MF_STRING, ID_AFFICHE_INVERSE_COORDS, L"In&verser les coordonnées X et Y");
 
     AppendMenu(m_hMenu, MF_POPUP, reinterpret_cast<UINT_PTR>(hMenuAffichage), L"&Affichage");
     m_hMenuAffichage = GetSubMenu(m_hMenu, 2);
+
+    CheckMenuItem(hMenuAffichage, ID_AFFICHE_STATIONS, MF_CHECKED);
+    CheckMenuItem(hMenuAffichage, ID_AFFICHE_REFERENCES, MF_CHECKED);
+    CheckMenuItem(hMenuAffichage, ID_AFFICHE_MESURES, MF_CHECKED);
+    CheckMenuItem(hMenuAffichage, ID_AFFICHE_POINTS, MF_CHECKED);
+    CheckMenuItem(hMenuAffichage, ID_AFFICHE_LECTURES_NIV, MF_CHECKED);
+    CheckMenuItem(hMenuAffichage, ID_AFFICHE_COMMENTAIRES, MF_CHECKED);
+    CheckMenuItem(hMenuAffichage, ID_AFFICHE_COMMANDES, MF_CHECKED);
+    CheckMenuItem(hMenuAffichage, ID_AFFICHE_DEF_CALCULS, MF_CHECKED);
+    CheckMenuItem(hMenuAffichage, ID_AFFICHE_APPAREIL, MF_CHECKED);
+    CheckMenuItem(hMenuAffichage, ID_AFFICHE_PHOTOS, MF_CHECKED);
 }
 
 void GeoBaseDialog::ToggleAffichageStations() {
-    // code à faire
-    RafraichirListe();
-}
-
-void GeoBaseDialog::ToggleAffichageMesures() {
-    // code à faire
+    m_afficheStations = !m_afficheStations;
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_STATIONS,
+        MF_BYCOMMAND | (m_afficheStations ? MF_CHECKED : MF_UNCHECKED));
     RafraichirListe();
 }
 
 void GeoBaseDialog::ToggleAffichageReferences() {
-    // code à faire
+    m_afficheReferences = !m_afficheReferences;
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_REFERENCES,
+        MF_BYCOMMAND | (m_afficheReferences ? MF_CHECKED : MF_UNCHECKED));
+    RafraichirListe();
+}
+
+void GeoBaseDialog::ToggleAffichageMesures() {
+    m_afficheMesures = !m_afficheMesures;
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_MESURES,
+        MF_BYCOMMAND | (m_afficheMesures ? MF_CHECKED : MF_UNCHECKED));
     RafraichirListe();
 }
 
 void GeoBaseDialog::ToggleAffichagePoints() {
-    // code à faire
-    RafraichirListe();
-}
-
-void GeoBaseDialog::ToggleAffichageCheminements() {
-    // code à faire
+    m_affichePoints = !m_affichePoints;
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_POINTS,
+        MF_BYCOMMAND | (m_affichePoints ? MF_CHECKED : MF_UNCHECKED));
     RafraichirListe();
 }
 
 void GeoBaseDialog::ToggleAffichageLecturesNiv() {
-    // code à faire
+    m_afficheLecturesNiv = !m_afficheLecturesNiv;
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_LECTURES_NIV,
+        MF_BYCOMMAND | (m_afficheLecturesNiv ? MF_CHECKED : MF_UNCHECKED));
     RafraichirListe();
 }
 
-void GeoBaseDialog::ToggleAffichageTotal(bool typeAffichage) {
-    // code à faire
+void GeoBaseDialog::ToggleAffichageCommentaires() {
+    m_afficheCommentaires = !m_afficheCommentaires;
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_COMMENTAIRES,
+        MF_BYCOMMAND | (m_afficheCommentaires ? MF_CHECKED : MF_UNCHECKED));
+    RafraichirListe();
+}
+
+void GeoBaseDialog::ToggleAffichageCommandes() {
+    m_afficheCommandes = !m_afficheCommandes;
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_COMMANDES,
+        MF_BYCOMMAND | (m_afficheCommandes ? MF_CHECKED : MF_UNCHECKED));
+    RafraichirListe();
+}
+
+void GeoBaseDialog::ToggleAffichageDefinitionsCalculs() {
+    m_afficheDefinitionsCalculs = !m_afficheDefinitionsCalculs;
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_DEF_CALCULS,
+        MF_BYCOMMAND | (m_afficheDefinitionsCalculs ? MF_CHECKED : MF_UNCHECKED));
+    RafraichirListe();
+}
+
+void GeoBaseDialog::ToggleAffichageAppareils() {
+    m_afficheAppareils = !m_afficheAppareils;
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_APPAREIL,
+        MF_BYCOMMAND | (m_afficheAppareils ? MF_CHECKED : MF_UNCHECKED));
+    RafraichirListe();
+}
+
+void GeoBaseDialog::ToggleAffichagePhotos() {
+    m_affichePhotos = !m_affichePhotos;
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_PHOTOS,
+        MF_BYCOMMAND | (m_affichePhotos ? MF_CHECKED : MF_UNCHECKED));
+    RafraichirListe();
+}
+
+void GeoBaseDialog::ToggleAffichageTotal() {
+    bool nouvelEtat = !(m_afficheStations && m_afficheReferences && m_afficheMesures &&
+                         m_affichePoints && m_afficheLecturesNiv && m_afficheCommentaires &&
+                         m_afficheCommandes && m_afficheDefinitionsCalculs &&
+                         m_afficheAppareils && m_affichePhotos);
+
+    m_afficheStations = nouvelEtat;
+    m_afficheReferences = nouvelEtat;
+    m_afficheMesures = nouvelEtat;
+    m_affichePoints = nouvelEtat;
+    m_afficheLecturesNiv = nouvelEtat;
+    m_afficheCommentaires = nouvelEtat;
+    m_afficheCommandes = nouvelEtat;
+    m_afficheDefinitionsCalculs = nouvelEtat;
+    m_afficheAppareils = nouvelEtat;
+    m_affichePhotos = nouvelEtat;
+
+    UINT etatCoche = nouvelEtat ? MF_CHECKED : MF_UNCHECKED;
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_STATIONS,     MF_BYCOMMAND | etatCoche);
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_REFERENCES,   MF_BYCOMMAND | etatCoche);
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_MESURES,      MF_BYCOMMAND | etatCoche);
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_POINTS,       MF_BYCOMMAND | etatCoche);
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_LECTURES_NIV, MF_BYCOMMAND | etatCoche);
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_COMMENTAIRES, MF_BYCOMMAND | etatCoche);
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_COMMANDES,    MF_BYCOMMAND | etatCoche);
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_DEF_CALCULS,  MF_BYCOMMAND | etatCoche);
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_APPAREIL,     MF_BYCOMMAND | etatCoche);
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_PHOTOS,       MF_BYCOMMAND | etatCoche);
+
+    RafraichirListe();
+}
+
+void GeoBaseDialog::ToggleAffichageVide() {
+    m_afficheStations = false;
+    m_afficheReferences = false;
+    m_afficheMesures = false;
+    m_affichePoints = false;
+    m_afficheLecturesNiv = false;
+    m_afficheCommentaires = false;
+    m_afficheCommandes = false;
+    m_afficheDefinitionsCalculs = false;
+    m_afficheAppareils = false;
+    m_affichePhotos = false;
+
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_STATIONS,     MF_BYCOMMAND | MF_UNCHECKED);
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_REFERENCES,   MF_BYCOMMAND | MF_UNCHECKED);
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_MESURES,      MF_BYCOMMAND | MF_UNCHECKED);
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_POINTS,       MF_BYCOMMAND | MF_UNCHECKED);
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_LECTURES_NIV, MF_BYCOMMAND | MF_UNCHECKED);
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_COMMENTAIRES, MF_BYCOMMAND | MF_UNCHECKED);
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_COMMANDES,    MF_BYCOMMAND | MF_UNCHECKED);
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_DEF_CALCULS,  MF_BYCOMMAND | MF_UNCHECKED);
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_APPAREIL,     MF_BYCOMMAND | MF_UNCHECKED);
+    CheckMenuItem(m_hMenuAffichage, ID_AFFICHE_PHOTOS,       MF_BYCOMMAND | MF_UNCHECKED);
+
+    RafraichirListe();
+}
+
+void GeoBaseDialog::InverserCoords_X_Y() {
+    SauvegarderEtatPourAnnulation();
+    for (auto& rec : m_enregistrements) {
+        if (rec.type == GeoType::Point && rec.X && rec.Y) {
+            std::swap(*rec.X, *rec.Y);
+        }
+    }
+    m_modifie = true;
     RafraichirListe();
 }
 
