@@ -22,40 +22,28 @@ static const std::wstring LogoKonyxChemin = L"C:\\Dev\\Konyx\\resources\\logo\\k
 
 namespace Konyx {
 
+
 std::string IncrementerMatricule(const std::string& matricule) {
     if (matricule.empty())
         return matricule;
 
-    // Cas 1 : matricule composé avec suffixe numérique (ex : X.9 -> X.10).
-    size_t pos = matricule.find_last_of('.');
-
-    if (pos != std::string::npos && pos + 1 < matricule.size()) {
-        std::string suffixe = matricule.substr(pos + 1);
-
-        bool numerique = true;
-        for (char c : suffixe) {
-            if (c < '0' || c > '9') {
-                numerique = false;
-                break;
+    // Fonction interne : incrémentation numérique sans limite de taille.
+    auto incrementerNumerique = [](std::string nombre) {
+        for (int i = static_cast<int>(nombre.size()) - 1; i >= 0; --i) {
+            if (nombre[i] < '9') {
+                ++nombre[i];
+                return nombre;
             }
+            nombre[i] = '0';
         }
 
-        if (numerique) {
-            for (int i = static_cast<int>(suffixe.size()) - 1; i >= 0; --i) {
-                if (suffixe[i] < '9') {
-                    ++suffixe[i];
-                    return matricule.substr(0, pos + 1) + suffixe;
-                }
-                suffixe[i] = '0';
-            }
+        nombre.insert(nombre.begin(), '1');
+        return nombre;
+    };
 
-            suffixe.insert(suffixe.begin(), '1');
-            return matricule.substr(0, pos + 1) + suffixe;
-        }
-    }
-
-    // Cas 2 : matricule entièrement numérique, sans limite de taille.
+    // Cas 1 : matricule entièrement numérique.
     bool numerique = true;
+
     for (char c : matricule) {
         if (c < '0' || c > '9') {
             numerique = false;
@@ -63,23 +51,12 @@ std::string IncrementerMatricule(const std::string& matricule) {
         }
     }
 
-    if (numerique) {
-        std::string resultat = matricule;
+    if (numerique)
+        return incrementerNumerique(matricule);
 
-        for (int i = static_cast<int>(resultat.size()) - 1; i >= 0; --i) {
-            if (resultat[i] < '9') {
-                ++resultat[i];
-                return resultat;
-            }
-            resultat[i] = '0';
-        }
-
-        resultat.insert(resultat.begin(), '1');
-        return resultat;
-    }
-
-    // Cas 3 : matricule alphabétique (A -> B ... Z -> AA).
+    // Cas 2 : matricule entièrement alphabétique.
     bool alphabetique = true;
+
     for (char c : matricule) {
         if (c < 'A' || c > 'Z') {
             alphabetique = false;
@@ -102,8 +79,24 @@ std::string IncrementerMatricule(const std::string& matricule) {
         return resultat;
     }
 
-    // Format non reconnu : on conserve le matricule sans le modifier.
-    return matricule;
+    // Cas 3 : matricule mixte.
+    // On recherche la dernière séquence numérique.
+    size_t debutNombre = matricule.size();
+
+    while (debutNombre > 0 &&
+           matricule[debutNombre - 1] >= '0' &&
+           matricule[debutNombre - 1] <= '9') {
+        --debutNombre;
+    }
+
+    // Aucun suffixe numérique : format non reconnu.
+    if (debutNombre == matricule.size())
+        return matricule;
+
+    std::string prefixe = matricule.substr(0, debutNombre);
+    std::string nombre = matricule.substr(debutNombre);
+
+    return prefixe + incrementerNumerique(nombre);
 }
 
 constexpr wchar_t GeoBaseDialog::ClasseFenetre[];
@@ -138,6 +131,8 @@ bool GeoBaseDialog::TypeEstAffiche(GeoType type) const {
     case GeoType::Point:         return m_affichePoints;
     case GeoType::NivLectAR:
     case GeoType::NivLectAV:     return m_afficheLecturesNiv;
+    case GeoType::CheminEncadre:
+    case GeoType::CheminAntenne: return m_afficheDefinitionsCalculs;
     case GeoType::Commentaire:   return m_afficheCommentaires;
     case GeoType::Appareil:      return m_afficheAppareils;
     case GeoType::Photo:         return m_affichePhotos;
@@ -393,16 +388,16 @@ LRESULT GeoBaseDialog::GererMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM l
 
 
         //ruban
-        if (id == ID_TB_AJOUTER_STATION)     { ActionAjouterPointDirect(); return 0; }
-        if (id == ID_TB_AJOUTER_REFERENCE)   { ActionAjouterPointDirect(); return 0; }
-        if (id == ID_TB_AJOUTER_MESURE)      { ActionAjouterPointDirect(); return 0; }
-        if (id == ID_TB_AJOUTER_POINT)       { ActionAjouterPointDirect(); return 0; }
-        if (id == ID_TB_AJOUTER_LECT_AR)     { ActionAjouterLectureARDirect(); return 0; }
-        if (id == ID_TB_AJOUTER_LECT_AV)     { ActionAjouterLectureAVDirect(); return 0; }
-        if (id == ID_TB_AJOUTER_COMMANDE)    { ActionAjouterPointDirect(); return 0; }
-        if (id == ID_TB_AJOUTER_COMMENTAIRE) { ActionAjouterPointDirect(); return 0; }
-        if (id == ID_TB_AJOUTER_CHEMINEMENT) { ActionAjouterCheminementDirect(); return 0; }
-        if (id == ID_TB_AJOUTER_APPAREIL)    { ActionAjouterPointDirect(); return 0; }
+        if (id == ID_TB_AJOUTER_STATION)     { ActionAjouterElementDirect(GeoType::Station); return 0; }
+        if (id == ID_TB_AJOUTER_REFERENCE)   { ActionAjouterElementDirect(GeoType::Reference); return 0; }
+        if (id == ID_TB_AJOUTER_MESURE)      { ActionAjouterElementDirect(GeoType::Mesure); return 0; }
+        if (id == ID_TB_AJOUTER_POINT)       { ActionAjouterElementDirect(GeoType::Point); return 0; }
+        if (id == ID_TB_AJOUTER_LECT_AR)     { ActionAjouterElementDirect(GeoType::NivLectAR); return 0; }
+        if (id == ID_TB_AJOUTER_LECT_AV)     { ActionAjouterElementDirect(GeoType::NivLectAV); return 0; }
+        if (id == ID_TB_AJOUTER_COMMANDE)    { ActionAjouterElementDirect(GeoType::Commande); return 0; }
+        if (id == ID_TB_AJOUTER_COMMENTAIRE) { ActionAjouterElementDirect(GeoType::Commentaire); return 0; }
+        if (id == ID_TB_AJOUTER_CHEMINEMENT) { ActionAjouterElementDirect(GeoType::CheminEncadre); return 0; }
+        if (id == ID_TB_AJOUTER_APPAREIL)    { ActionAjouterElementDirect(GeoType::Appareil); return 0; }
 
         break;
     }
@@ -1101,102 +1096,59 @@ void GeoBaseDialog::ActionInsererApres() {
     AjouterElement(index + 2);
 }
 
-void GeoBaseDialog::ActionAjouterPointDirect() {
+
+void GeoBaseDialog::ActionAjouterElementDirect(GeoType TypeElement) {
     GeoRecord nouveau;
-    nouveau.type = GeoType::Point;
+    nouveau.type = TypeElement;
     nouveau.numLigne = static_cast<int>(m_enregistrements.size()) + 1;
 
-    bool allerSuivant = false;
-    if (GeoEditDialog::Modifier(m_hwnd, nouveau, static_cast<int>(m_enregistrements.size()) + 1,
-                                 std::nullopt, allerSuivant, /*creation=*/true)) {
-        SauvegarderEtatPourAnnulation();
-        int cible = nouveau.numLigne - 1;
-        if (cible < 0) cible = 0;
-        if (cible > static_cast<int>(m_enregistrements.size())) cible = static_cast<int>(m_enregistrements.size());
-        m_enregistrements.insert(m_enregistrements.begin() + cible, nouveau);
-        m_modifie = true;
-        RenumeroterLignes();
-        RafraichirListe();
+    if (nouveau.type == GeoType::NivLectAR || nouveau.type == GeoType::NivLectAV) {
+        CreerLecturesSuccessives(nouveau.type);
+    } else {
+        bool allerSuivant = false;
+        if (GeoEditDialog::Modifier(m_hwnd, nouveau, static_cast<int>(m_enregistrements.size()) + 1,
+                                    std::nullopt, allerSuivant, true)) {
+            SauvegarderEtatPourAnnulation();
+            int cible = nouveau.numLigne - 1;
+            if (cible < 0) cible = 0;
+            if (cible > static_cast<int>(m_enregistrements.size())) cible = static_cast<int>(m_enregistrements.size());
+            m_enregistrements.insert(m_enregistrements.begin() + cible, nouveau);
+            m_modifie = true;
+            RenumeroterLignes();
+            RafraichirListe();
+        }
     }
-}
-
-/*void GeoBaseDialog::ActionAjouterLectureARDirect() {
-    GeoRecord nouveau;
-    nouveau.type = GeoType::NivLectAR;
-    nouveau.numLigne = static_cast<int>(m_enregistrements.size()) + 1;
-
-    bool allerSuivant = false;
-    if (GeoEditDialog::Modifier(m_hwnd, nouveau, static_cast<int>(m_enregistrements.size()) + 1,
-                                 std::nullopt, allerSuivant, true)) {
-        SauvegarderEtatPourAnnulation();
-        int cible = nouveau.numLigne - 1;
-        if (cible < 0) cible = 0;
-        if (cible > static_cast<int>(m_enregistrements.size())) cible = static_cast<int>(m_enregistrements.size());
-        m_enregistrements.insert(m_enregistrements.begin() + cible, nouveau);
-        m_modifie = true;
-        RenumeroterLignes();
-        RafraichirListe();
-    }
-}
-
-void GeoBaseDialog::ActionAjouterLectureAVDirect() {
-    GeoRecord nouveau;
-    nouveau.type = GeoType::NivLectAV;
-    nouveau.numLigne = static_cast<int>(m_enregistrements.size()) + 1;
-
-    bool allerSuivant = false;
-    if (GeoEditDialog::Modifier(m_hwnd, nouveau, static_cast<int>(m_enregistrements.size()) + 1,
-                                 std::nullopt, allerSuivant, creation=true)) {
-        SauvegarderEtatPourAnnulation();
-        int cible = nouveau.numLigne - 1;
-        if (cible < 0) cible = 0;
-        if (cible > static_cast<int>(m_enregistrements.size())) cible = static_cast<int>(m_enregistrements.size());
-        m_enregistrements.insert(m_enregistrements.begin() + cible, nouveau);
-        m_modifie = true;
-        RenumeroterLignes();
-        RafraichirListe();
-    }
-}
-*/
-
-void GeoBaseDialog::ActionAjouterLectureARDirect() {
-    CreerLecturesSuccessives(GeoType::NivLectAR);
-}
-
-void GeoBaseDialog::ActionAjouterLectureAVDirect() {
-    CreerLecturesSuccessives(GeoType::NivLectAV);
 }
 
 void GeoBaseDialog::CreerLecturesSuccessives(GeoType typeInitial) {
     GeoType typeCourant = typeInitial;
     std::string matriculeSuivant;
+    int ligneSuivante = 0;
 
     while (true) {
         // Préparation d'une nouvelle lecture à la fin de la géobase.
         GeoRecord nouveau;
         nouveau.type = typeCourant;
-        nouveau.numLigne = static_cast<int>(m_enregistrements.size()) + 1;
+        //nouveau.numLigne = static_cast<int>(m_enregistrements.size()) + 1;
+        nouveau.numLigne = (ligneSuivante == 0) ? static_cast<int>(m_enregistrements.size()) + 1 : ligneSuivante;
         nouveau.matricule = matriculeSuivant;
 
         bool allerSuivant = false;
 
         // Ouverture de la fenêtre de création.
-        if (!GeoEditDialog::Modifier(
-                m_hwnd,
-                nouveau,
-                static_cast<int>(m_enregistrements.size()) + 1,
-                std::nullopt,
-                allerSuivant,
-                /*creation=*/true)) {
+        if (!GeoEditDialog::Modifier(m_hwnd, nouveau, nouveau.numLigne, std::nullopt, allerSuivant, true)) {
             // Annulation : on conserve toutes les lectures précédemment validées.
             break;
         }
-
+        
+        ligneSuivante = nouveau.numLigne + 1;
         // La lecture validée est ajoutée définitivement à la géobase.
         SauvegarderEtatPourAnnulation();
 
-        nouveau.numLigne = static_cast<int>(m_enregistrements.size()) + 1;
-        m_enregistrements.push_back(nouveau);
+        //nouveau.numLigne = static_cast<int>(m_enregistrements.size()) + 1;
+        //m_enregistrements.push_back(nouveau);
+        auto position = m_enregistrements.begin() + (nouveau.numLigne - 1);
+        m_enregistrements.insert(position, nouveau);
 
         m_modifie = true;
         RenumeroterLignes();
@@ -1223,11 +1175,6 @@ void GeoBaseDialog::CreerLecturesSuccessives(GeoType typeInitial) {
         else
             typeCourant = GeoType::NivLectAR;
     }
-}
-
-void GeoBaseDialog::ActionAjouterCheminementDirect() {
-    MessageBox(m_hwnd, L"L'édition des cheminements n'est pas encore implémentée.",
-               L"Konyx - GeoBase", MB_ICONINFORMATION);
 }
 
 void GeoBaseDialog::ActionChangerHP() {
@@ -1611,7 +1558,7 @@ void GeoBaseDialog::CreerMenuCalculs() {
 }
 
 void GeoBaseDialog::ActionCalculerV0Stations() {
-    GeoCalculV0Dialog::Afficher(m_hwnd, m_enregistrements);
+    GeoCalculV0Dialog::Afficher(m_hwnd, m_enregistrements, m_cheminFichier);
     RafraichirListe();
 }
 

@@ -19,10 +19,14 @@ namespace Konyx {
 // l'appelant de marquer la geobase comme modifiee / a sauvegarder).
 class GeoCalculV0Dialog {
 public:
-    static void Afficher(HWND hwndParent, std::vector<GeoRecord>& enregistrements);
+    // cheminGeobase : chemin du fichier .geo actuellement ouvert (affiche
+    // dans l'entete du listing RTF ; vide si le fichier n'a pas encore ete
+    // enregistre).
+    static void Afficher(HWND hwndParent, std::vector<GeoRecord>& enregistrements,
+                          const std::wstring& cheminGeobase);
 
 private:
-    explicit GeoCalculV0Dialog(std::vector<GeoRecord>& enregistrements);
+    GeoCalculV0Dialog(std::vector<GeoRecord>& enregistrements, const std::wstring& cheminGeobase);
     ~GeoCalculV0Dialog();
 
     static LRESULT CALLBACK FenetreProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -35,9 +39,11 @@ private:
     void OuvrirGraphique();
     void Calculer();
     void Enregistrer();
+    void GenererEtOuvrirListing();
     void MajAffichageV0(); // recalcule la moyenne sur les lignes cochees et l'affiche
 
     std::vector<GeoRecord>& m_enregistrements;
+    std::wstring m_cheminGeobase;
     std::vector<StationEtVisees> m_stations; // toutes les stations + leurs visees
     int m_indexStationCourante = -1;         // index dans m_stations
     const GeoRecord* m_pointStationCourante = nullptr; // Point donnant X/Y/Z de la station, ou nullptr

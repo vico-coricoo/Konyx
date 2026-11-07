@@ -256,10 +256,7 @@ private:
     bool RechercherEtSelectionner(bool parSymbole, const std::wstring& valeur);
 
     // MENUBAR DES BOUTONS DE RACCOURCI
-    void ActionAjouterPointDirect();
-    void ActionAjouterLectureARDirect();
-    void ActionAjouterLectureAVDirect();
-    void ActionAjouterCheminementDirect();
+    void ActionAjouterElementDirect(GeoType TypeElement);
     void CreerRubanBoutons(HWND hwnd);
 
 

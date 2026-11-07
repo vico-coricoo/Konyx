@@ -1,11 +1,17 @@
 #include "GeoCalculV0Dialog.h"
+#include "GeoListingV0.h"
 #include <windowsx.h>
 #include <commctrl.h>
+#include <commdlg.h>
+#include <shellapi.h>
 #include <sstream>
 #include <iomanip>
 #include <cmath>
+#include <fstream>
 
 #pragma comment(lib, "comctl32.lib")
+#pragma comment(lib, "comdlg32.lib")
+#pragma comment(lib, "shell32.lib")
 
 namespace Konyx {
 
@@ -64,8 +70,9 @@ static bool MoyenneCirculaire(const std::vector<ContributionV0>& contributions,
 
 // ---------------------------------------------------------------------
 
-void GeoCalculV0Dialog::Afficher(HWND hwndParent, std::vector<GeoRecord>& enregistrements) {
-    GeoCalculV0Dialog dlg(enregistrements);
+void GeoCalculV0Dialog::Afficher(HWND hwndParent, std::vector<GeoRecord>& enregistrements,
+                                  const std::wstring& cheminGeobase) {
+    GeoCalculV0Dialog dlg(enregistrements, cheminGeobase);
 
     WNDCLASSEX wc{};
     wc.cbSize = sizeof(wc);
@@ -107,8 +114,8 @@ void GeoCalculV0Dialog::Afficher(HWND hwndParent, std::vector<GeoRecord>& enregi
     SetForegroundWindow(hwndParent);
 }
 
-GeoCalculV0Dialog::GeoCalculV0Dialog(std::vector<GeoRecord>& enregistrements)
-    : m_enregistrements(enregistrements) {
+GeoCalculV0Dialog::GeoCalculV0Dialog(std::vector<GeoRecord>& enregistrements, const std::wstring& cheminGeobase)
+    : m_enregistrements(enregistrements), m_cheminGeobase(cheminGeobase) {
     m_hFont = CreateFont(
         -22, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
         DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
@@ -183,7 +190,7 @@ LRESULT GeoCalculV0Dialog::GererMessage(HWND hwnd, UINT msg, WPARAM wParam, LPAR
         } else if (id == ID_BTN_ENREGISTRER) {
             Enregistrer();
         } else if (id == ID_BTN_LISTING) {
-            MessageBox(m_hwnd, L"Listing RTF (à implémenter)", L"KONYX - Information", MB_ICONINFORMATION);
+            GenererEtOuvrirListing();
         } else if (id == ID_BTN_GRAPHIQUE) {
             OuvrirGraphique();
         } else if (id == ID_BTN_OK) {
@@ -513,6 +520,48 @@ void GeoCalculV0Dialog::Enregistrer() {
     } catch (...) {
         MessageBox(m_hwnd, L"Valeur de V0 invalide.", L"Calcul de V0", MB_OK | MB_ICONERROR);
     }
+}
+
+void GeoCalculV0Dialog::GenererEtOuvrirListing() {
+    std::string rtf = GenererListingV0(m_enregistrements, m_cheminGeobase);
+
+    wchar_t nomFichier[MAX_PATH] = L"";
+    // Nom par defaut : <geobase sans extension>_V0.rtf, ou "Listing_V0.rtf"
+    // si la geobase n'a pas encore ete enregistree.
+    if (!m_cheminGeobase.empty()) {
+        std::wstring base = m_cheminGeobase;
+        size_t pointPos = base.find_last_of(L'.');
+        size_t sepPos = base.find_last_of(L"\\/");
+        if (pointPos != std::wstring::npos && (sepPos == std::wstring::npos || pointPos > sepPos)) {
+            base = base.substr(0, pointPos);
+        }
+        wcsncpy_s(nomFichier, (base + L"_V0.rtf").c_str(), _TRUNCATE);
+    } else {
+        wcsncpy_s(nomFichier, L"Listing_V0.rtf", _TRUNCATE);
+    }
+
+    OPENFILENAME ofn{};
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner = m_hwnd;
+    ofn.lpstrFilter = L"Fichier RTF (*.rtf)\0*.rtf\0Tous les fichiers (*.*)\0*.*\0";
+    ofn.lpstrFile = nomFichier;
+    ofn.nMaxFile = MAX_PATH;
+    ofn.lpstrDefExt = L"rtf";
+    ofn.Flags = OFN_OVERWRITEPROMPT | OFN_PATHMUSTEXIST;
+
+    if (!GetSaveFileName(&ofn)) {
+        return; // annule par l'utilisateur
+    }
+
+    std::ofstream fichier(nomFichier, std::ios::binary);
+    if (!fichier) {
+        MessageBox(m_hwnd, L"Impossible d'écrire le fichier de listing.", L"KONYX - Erreur", MB_OK | MB_ICONERROR);
+        return;
+    }
+    fichier.write(rtf.data(), static_cast<std::streamsize>(rtf.size()));
+    fichier.close();
+
+    ShellExecute(m_hwnd, L"open", nomFichier, nullptr, nullptr, SW_SHOWNORMAL);
 }
 
 } // namespace Konyx

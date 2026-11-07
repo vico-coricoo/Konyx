@@ -15,6 +15,7 @@ enum class GeoType {
     Point,
     NivLectAR,
     NivLectAV,
+    Commande,
     Commentaire,
     CheminAntenne,
     CheminEncadre,

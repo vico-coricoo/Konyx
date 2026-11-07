@@ -54,6 +54,7 @@ set(KONYX_SOURCES
     src/commands/KonCalculs/GeoBase/GeoEditDialog.cpp
     src/commands/KonCalculs/GeoBase/GeoStationVisees.cpp
     src/commands/KonCalculs/GeoBase/GeoCalculV0.cpp
+    src/commands/KonCalculs/GeoBase/GeoListingV0.cpp
     src/commands/KonCalculs/GeoBase/GeoCalculV0Dialog.cpp
     src/commands/KonCalculs/GeoBase/GeoCalculV0Graphique.cpp
     src/commands/KonCalculs/GeoBase/GeoBaseRuban.cpp
